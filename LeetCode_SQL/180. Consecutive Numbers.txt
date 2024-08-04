@@ -1,0 +1,19 @@
+WITH consicutive_numbers AS (
+
+SELECT
+    id,
+    num,
+    ROW_NUMBER() OVER(PARTITION BY num ORDER BY id) as Generated_Id
+FROM
+    Logs
+)
+
+SELECT 
+    DISTINCT num as ConsecutiveNums
+FROM 
+    consicutive_numbers
+GROUP BY
+    num,
+    (id - cast(Generated_Id AS SIGNED))
+HAVING
+    count(ConsecutiveNums) >= 3

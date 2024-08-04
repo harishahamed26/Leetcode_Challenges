@@ -1,0 +1,35 @@
+class Solution(object):
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+
+        number = nums[:]
+        number = sorted(nums)
+        length = len(number)
+        start = 0
+        end = length-1
+        if length == 0:
+            return [-1]
+        else:
+            while start < end:
+                total = number[start] + number[end]
+                if total == target:
+                    if number[start] == number[end]:
+                        same_index = list()
+                        for i in range(len(nums)):
+                            if number[start] == nums[i]:
+                                same_index.append(i)
+                        return same_index
+                    else:
+                        return[nums.index(number[start]), nums.index(number[end])]
+                elif total < target:
+                    start += 1
+                elif total > target:
+                    end -=1
+            return [-1]
+
+            
+                

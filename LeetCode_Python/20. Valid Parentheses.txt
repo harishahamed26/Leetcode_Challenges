@@ -1,0 +1,22 @@
+from collections import deque
+class Solution(object):
+    def isValid(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        open_brackets = ('(', '[', '{')
+        close_brackets = (')', ']', '}')
+        brackets = dict(zip(open_brackets, close_brackets))
+        queue = deque()
+        for i in s:
+            if i in open_brackets:
+                queue.append(brackets[i])
+            elif i in close_brackets:
+                if len(queue) == 0 or i != queue.pop():
+                    return False
+            
+        if len(queue) == 0:
+            return True
+        else:
+            return False

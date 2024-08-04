@@ -1,0 +1,23 @@
+WITH top_3_salaries_dept AS (
+    SELECT 
+        d.name as Department,
+        e.name as Employee,
+        e.salary as Salary,
+        DENSE_RANK() OVER(PARTITION BY e.departmentId ORDER BY e.salary DESC) AS top_list
+    FROM
+        Employee e 
+    JOIN 
+        Department d
+    ON 
+        e.departmentId = d.id
+)
+
+SELECT
+    Department,
+    Employee,
+    Salary 
+FROM 
+    top_3_salaries_dept
+WHERE
+    top_list = 1
+ORDER BY Salary DESC;

@@ -1,0 +1,17 @@
+class Solution(object):
+    def plusOne(self, digits):
+        """
+        :type digits: List[int]
+        :rtype: List[int]
+        """
+        new_digits = []
+        s = [str(i) for i in digits]
+        total = int("".join(s))
+
+        total = total + 1
+        total = str(total)
+
+        for i in range(len(total)):
+            new_digits.append(int(total[i]))
+        
+        return new_digits

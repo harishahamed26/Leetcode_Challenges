@@ -1,0 +1,20 @@
+# Write your MySQL query statement below
+
+WITH second_highest_salery AS (
+    SELECT
+        salary as SecondHighestSalary,
+        DENSE_RANK() OVER(ORDER BY salary DESC) AS top_list
+    FROM
+        Employee
+)
+
+SELECT
+    SecondHighestSalary
+FROM
+    second_highest_salery
+WHERE
+    top_list = 2
+UNION
+SELECT
+    null
+LIMIT 1;

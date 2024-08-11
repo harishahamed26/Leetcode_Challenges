@@ -1,0 +1,27 @@
+# Write your MySQL query statement below
+WITH human_traffic as (
+SELECT 
+    *,
+    id - ROW_NUMBER() OVER() AS difference
+FROM
+    Stadium
+WHERE 
+  	people > 99
+
+)
+SELECT 
+	id,
+    visit_date,
+    people
+FROM 
+	human_traffic
+WHERE
+	difference IN (SELECT
+                  		difference
+                   FROM
+                  		human_traffic
+                   GROUP BY
+                  		difference
+                   HAVING COUNT(*) > 2 )
+                   
+ORDER BY visit_date    

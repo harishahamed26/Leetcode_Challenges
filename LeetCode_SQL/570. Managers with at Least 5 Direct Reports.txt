@@ -1,0 +1,26 @@
+# Write your MySQL query statement below
+WITH Five_Direct_Report AS(
+    SELECT
+        DISTINCT e1.id  as manager_id,
+        count(e1.id) as employee_count
+    FROM
+        Employee e1
+    JOIN
+        Employee e2
+    ON
+        e1.id = e2.managerId
+
+    GROUP BY
+        e1.id 
+)
+
+SELECT
+	e1.name
+FROM
+    Five_Direct_Report f5
+JOIN 
+    Employee e1 
+ON
+    f5.manager_id = e1.id 
+WHERE
+	f5.employee_count >= 5;
